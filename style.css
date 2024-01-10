@@ -7,7 +7,7 @@
 /* ul li a são display inline ou seja ocupa somente o tamanho necessario */
 /* a tag a no CSS é inline */
 /* PSEUDOSELETORES : Os pseudosseletores são uma forma de selecionar elementos HTML com base em seu estado ou posição em relação a outros elementos. */
-/*-------------------------------------------------------------------------------------------------------------*/
+
 * {
   /*GLOBAL*/
   margin: 0;
@@ -19,8 +19,6 @@
   --bg-url: url(./assets/bg-mobile.jpg);
 
   --button-switch: url(./assets/moon-stars.svg);
-
-  --posicao-switch: 1;
 
   --cor-texto-padrao: rgb(255, 255, 255);
 
@@ -38,8 +36,6 @@
 
   --button-switch: url(./assets/sun.svg);
 
-  --posicao-switch: 0;
-
   --cor-texto-padrao: rgb(0, 0, 0);
 
   --fundo-botao: rgba(0, 0, 0, 0.05);
@@ -50,7 +46,6 @@
 
   --fundo-social-link: rgba(0, 0, 0, 0.1);
 }
-/*-------------------------------------------------------------------------------------------------------------*/
 
 /*CONFIGURAÇÕES GERAIS DA PAGINA*/
 body {
@@ -66,6 +61,8 @@ body {
      background-image: color image repeat position
   */
   background: var(--bg-url) no-repeat top center/cover;
+  /* esse VH significa VIEWPORTHEIGHT, ou seja, toda area visivel na tela */
+  height: 100vh; 
 }
 
 body * {
@@ -74,11 +71,11 @@ body * {
   color: var(--cor-texto-padrao);
 }
 
-
 /*CONFIGURAÇÃO DA DIV CONTAINER*/
 #container {
   /*DIV CONTAINER*/
-  width: 360px;
+  width: 100%;
+  max-width: 588px;
   margin: 56px auto 0px; /* cima e laterais  */
   padding: 0 24px;
 }
@@ -105,7 +102,7 @@ body * {
 #switch {
   width: 64px;
   position: relative; /*VAI FAZER COM QUE A POSIÇÃO ABSOLUTA SEJA RELATIVA AO ESPAÇO DO SWITCH*/
-  margin: 4px auto; 
+  margin: 4px auto;
 }
 
 #switch button {
@@ -115,12 +112,22 @@ body * {
   border: none !important;
   border-radius: 50% !important;
   /*PARA SOBREPOR ITENS USAMOS CAMADAS*/
-   /*COM A POSITION LIGADA ELE VAI FICAR ONDE EU QUISER INDEPENDETE DA DIV*/
+  /*COM A POSITION LIGADA ELE VAI FICAR ONDE EU QUISER INDEPENDETE DA DIV*/
   position: absolute; /*NAO VAI SAIR DO LUGAR*/
-  right: var(--posicao-switch);
   z-index: 1; /*ESCOLHE EM QUE "ANDAR" ELE VAI FICAR*/
-  transform: translateY(-50%);  /*ELE SOBE (POR CAUSA DO NEG) METADE DO ELEMENTO NA POSICAO Y RELATIVAMENTE AO TAMANHO DO SWITCH PADRAO*/
+  transform: translateY(-50%); /*ELE SOBE (POR CAUSA DO NEG) METADE DO ELEMENTO NA POSICAO Y RELATIVAMENTE AO TAMANHO DO SWITCH PADRAO*/
   top: 50%; /*O TOP DELE DESCE METADE */
+  left: 0;
+  animation: slide-back 0.4s;  
+  /* o forwards mantem as propriedades finais da animação, aqui nao precisou porque a posição que tem que ser ja é zero */
+}
+
+.light #switch button {
+  animation: slide-in 0.4s forwards;
+}
+
+#switch button:hover{
+  outline: 8px solid var(--fundo-botao-acionado);
 }
 
 #switch span {
@@ -130,7 +137,7 @@ body * {
   background: var(--fundo-botao);
   border: 1px solid var(--borda-botao);
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px); 
+  -webkit-backdrop-filter: blur(4px);
   border-radius: 9999px;
 }
 
@@ -157,7 +164,7 @@ ul li a {
   border-radius: 8px;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-   /*alguns browsers precisam desse prefixo antes, vemos isso no caniuse e o nome d function*/
+  /*alguns browsers precisam desse prefixo antes, vemos isso no caniuse e o nome d function*/
   text-decoration: none; /*sem a linha debaixo*/
   font-weight: 500;
   transition: background 0.2s;
@@ -196,4 +203,34 @@ footer {
   padding: 24px;
   text-align: center;
   font-size: 14px;
+}
+
+
+/* media queries  */
+@media(min-width: 700px) {
+  :root{
+    --bg-url: url(./assets/bg-desktop.jpg);
+  }
+
+  .light{
+    --bg-url: url(./assets/bg-desktop-light.jpg);
+  }
+}
+
+/* animation */
+@keyframes slide-in {
+  from{
+    left:0;
+  }
+  to{
+    left: 50%;
+  }
+}
+  @keyframes slide-back {
+  from{
+    left: 50%;
+  }
+  to{
+    left:0;
+  }
 }
