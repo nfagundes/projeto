@@ -1,0 +1,199 @@
+/* OBSERVAÇÕES */
+/* quando é id usamos o # */
+/* vai procurar uma imagem dentro do ID PROFILE  */
+/* as DIVs são elementos block, ou seja, ficam ocupam todo o espaço disponivel  */
+/* as IMGs são elementos inline, ou seja, ficam uma abaxio da outra, ou seja a margin nao se aplica */
+/* ul li são display block ou seja ocupam a linha inteira, o espaço todo */
+/* ul li a são display inline ou seja ocupa somente o tamanho necessario */
+/* a tag a no CSS é inline */
+/* PSEUDOSELETORES : Os pseudosseletores são uma forma de selecionar elementos HTML com base em seu estado ou posição em relação a outros elementos. */
+/*-------------------------------------------------------------------------------------------------------------*/
+* {
+  /*GLOBAL*/
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /*a medida é feita pela borda das boxes*/
+}
+
+:root {
+  --bg-url: url(./assets/bg-mobile.jpg);
+
+  --button-switch: url(./assets/moon-stars.svg);
+
+  --posicao-switch: 1;
+
+  --cor-texto-padrao: rgb(255, 255, 255);
+
+  --fundo-botao: rgba(255, 255, 255, 0.1);
+  --borda-botao: rgba(255, 255, 255, 0.5);
+
+  --fundo-botao-acionado: rgba(255, 255, 255, 0.05);
+  --borda-botao-acionado: rgb(255, 255, 255);
+
+  --fundo-social-link: rgba(255, 255, 255, 0.2);
+}
+
+.light {
+  --bg-url: url(./assets/bg-mobile-light.jpg);
+
+  --button-switch: url(./assets/sun.svg);
+
+  --posicao-switch: 0;
+
+  --cor-texto-padrao: rgb(0, 0, 0);
+
+  --fundo-botao: rgba(0, 0, 0, 0.05);
+  --borda-botao: rgba(0, 0, 0, 0.5);
+
+  --fundo-botao-acionado: rgba(0, 0, 0, 0.02);
+  --borda-botao-acionado: rgb(0, 0, 0);
+
+  --fundo-social-link: rgba(0, 0, 0, 0.1);
+}
+/*-------------------------------------------------------------------------------------------------------------*/
+
+/*CONFIGURAÇÕES GERAIS DA PAGINA*/
+body {
+  /*CORPO*/
+  /* 
+  background-image: url(./assets/bg-mobile.jpg); -- adiciona uma imagem no fundo --
+  background-repeat: no-repeat; -- quando colocamos uma imagem ela repete por padrão isso faz com que nao repita --
+  background-position: top center; --eixo y e eixo x --
+  background-size: cover; -- cobrir toda a area visivel --
+ */
+
+  /* RESUMIR CODIGO ACIMA ^  ATRIBUTOS  : 
+     background-image: color image repeat position
+  */
+  background: var(--bg-url) no-repeat top center/cover;
+}
+
+body * {
+  /*FONTE DE TODO O CORPO DA PAGINA*/
+  font-family: "Inter", sans-serif;
+  color: var(--cor-texto-padrao);
+}
+
+
+/*CONFIGURAÇÃO DA DIV CONTAINER*/
+#container {
+  /*DIV CONTAINER*/
+  width: 360px;
+  margin: 56px auto 0px; /* cima e laterais  */
+  padding: 0 24px;
+}
+
+/*CONFIGURAÇÃO DA DIV PERFIL*/
+#profile {
+  /*PREENCHIMENTO E ALINHAMENTO DO TEXTO DA DIV PROFILE*/
+  text-align: center;
+  padding: 24px;
+}
+/* caso o display aqui fosse block o codigo acima nao funcionaria */
+#profile img {
+  /*TAMANHO DA IMAGEM DA DIV PROFILE*/
+  width: 112px;
+}
+#profile p {
+  /*TAMANHO E ALINAMENTO DO PARAGRAFO DA DIV PROFILE*/
+  font-weight: 500;
+  line-height: 24px;
+  gap: 8px;
+}
+
+/*CONFIGURAÇÃO DA DIV switch*/
+#switch {
+  width: 64px;
+  position: relative; /*VAI FAZER COM QUE A POSIÇÃO ABSOLUTA SEJA RELATIVA AO ESPAÇO DO SWITCH*/
+  margin: 4px auto; 
+}
+
+#switch button {
+  width: 32px;
+  height: 32px;
+  background: white var(--button-switch) no-repeat center;
+  border: none !important;
+  border-radius: 50% !important;
+  /*PARA SOBREPOR ITENS USAMOS CAMADAS*/
+   /*COM A POSITION LIGADA ELE VAI FICAR ONDE EU QUISER INDEPENDETE DA DIV*/
+  position: absolute; /*NAO VAI SAIR DO LUGAR*/
+  right: var(--posicao-switch);
+  z-index: 1; /*ESCOLHE EM QUE "ANDAR" ELE VAI FICAR*/
+  transform: translateY(-50%);  /*ELE SOBE (POR CAUSA DO NEG) METADE DO ELEMENTO NA POSICAO Y RELATIVAMENTE AO TAMANHO DO SWITCH PADRAO*/
+  top: 50%; /*O TOP DELE DESCE METADE */
+}
+
+#switch span {
+  display: block !important;
+  width: 64px;
+  height: 24px;
+  background: var(--fundo-botao);
+  border: 1px solid var(--borda-botao);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px); 
+  border-radius: 9999px;
+}
+
+/*Links*/
+ul {
+  /*CONFIG GERAL DA LISTA*/
+  list-style: none; /*esconde os pontinhos padrão no inicio de cada linha*/
+  display: flex;
+  flex-direction: column; /*direciona na coluna, row seria na linha*/
+  gap: 16px; /*espaço entre cada elemento*/
+  padding: 24px 0;
+}
+
+ul li a {
+  /*CONFIGURAÇÃO DOS LINKS/LINHAS DA LISTA*/
+  /*o "a" nesse caso sao os links*/
+  background: var(--fundo-botao);
+  /*caso fosse display inline ao inves de justify é text-align*/
+  display: flex;
+  align-items: center; /*centraliza em cima e embaixo*/
+  justify-content: center; /*centraliza a linha*/
+  padding: 16px 24px; /*preenchimento*/
+  border: 1px solid var(--borda-botao);
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+   /*alguns browsers precisam desse prefixo antes, vemos isso no caniuse e o nome d function*/
+  text-decoration: none; /*sem a linha debaixo*/
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+ul li a:hover {
+  /*CONFIGURAÇÃO QUANDO OS LINKS/LINHAS DA LISTA FOREM PRESSIONADOS*/
+  background-color: var(--fundo-botao-acionado);
+  border: 1.5px solid var(--borda-botao-acionado);
+}
+
+/*ICONES*/
+#social-links {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+  font-size: 24px;
+}
+
+#social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  transition: background 0.2s;
+  border-radius: 50%;
+}
+
+#social-links a:hover {
+  background: var(--fundo-social-link);
+  padding: 16px;
+}
+
+/*RODAPE*/
+footer {
+  padding: 24px;
+  text-align: center;
+  font-size: 14px;
+}
